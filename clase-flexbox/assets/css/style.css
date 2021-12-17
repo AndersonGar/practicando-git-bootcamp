@@ -1,0 +1,122 @@
+/*Estilo de formulario flex*/
+.content-form{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.field, .field-area{
+    margin: 0 3px 3px 0;
+    padding: 3px 2px;
+    border: 2px solid #252525;
+}
+
+.field{
+    flex: 1 0 40%;
+    width: 45%;
+    float: left;
+}
+
+.field-area{
+    flex: 1 0 90%;
+    width: 90%;
+}
+
+.btn-form{
+    padding: 3px;
+    background-color: rgb(21, 21, 122);
+    color: white;
+}
+
+/*Estilo de cartas pokemon*/
+.pokemon-container{
+    background-color: tomato;
+    padding: 50px 30px;
+}
+
+.pokemon-container h1{
+    text-align: center;
+    color: whitesmoke;
+    margin: 0 0 20px 0;
+}
+
+.flex-parent{
+    max-width: 950px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-child{
+    width: 320px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    box-shadow: gray 1px;
+}
+
+img{
+    max-width: 100%;
+}
+
+.info{
+    padding: 10px;
+}
+
+/*Estilo de un menú vertical(sidebar)*/
+.sidebar-wrapper{
+    width: 300px;
+    margin: 30px auto;
+    float: left;
+}
+
+.sidebar-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: crimson;
+}
+
+.sidebar-top h3{
+    color: whitesmoke;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.sidebar-menu{
+    flex-grow: 1;
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li{
+    padding: 10px;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+.sidebar-menu li:hover{
+    background-color: whitesmoke;
+    color: crimson;
+}
+
+.sidebar-menu li i{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sidebar-bottom{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.sidebar-bottom img{
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.sidebar-bottom{
+    color: whitesmoke;
+}
+
