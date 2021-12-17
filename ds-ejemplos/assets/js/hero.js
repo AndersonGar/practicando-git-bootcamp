@@ -40,6 +40,7 @@ var heroes = {
     ]
   }
 
+<<<<<<< HEAD
   var teamName = heroes.squadName;
   //var teamName = heroes["squadName"]; -> otra forma
   console.log(teamName);
@@ -77,3 +78,42 @@ var heroes = {
           alert(mensaje);           
       }
   }
+=======
+var teamName = heroes.squadName; //una forma
+//var teamName = heroes["squadName"]; -> otra forma
+console.log(teamName);
+
+//Mostrar el nombre de la base secreta
+
+var teamMembers = heroes.members; //una forma
+//var teamMembers = heroes["members"]; -> otra forma
+console.log(teamMembers);
+
+//Mostrar uno de los integrantes
+var member1 = teamMembers[0];
+console.log(member1);
+
+//Mostrar los superpoderes de la segunda integrante
+var power = teamMembers[1].powers;
+console.log(power);
+
+
+function Persona(nombre,edad,ciudad,intereses){
+    this.nombre = nombre;
+    this.edad = edad;
+    this.ciudad = ciudad;
+    this.intereses = intereses;
+
+    this.info = function(){
+        let mensaje = this.nombre+" tiene "+this.edad+" años. Y vive en "+this.ciudad+".";
+        alert(mensaje);
+    };
+
+    this.hobbies = function(){
+        let mensaje = "Los intereses de "+this.nombre+" son: "+this.intereses[0]+" y "+this.intereses[1];
+        alert(mensaje);
+    }
+}
+
+
+>>>>>>> 5b9d5e56bc32cb79edded49eb7a97e86f035be48
