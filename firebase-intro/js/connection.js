@@ -55,8 +55,6 @@ $(document).ready(function () {
         auth
             .createUserWithEmailAndPassword(correo, clave)
             .then((userCredential) => {
-                //$("#login-container").show();
-                //$("#registro").hide();
                 alert("Cuenta creada");
             })
             .catch((error) => {
@@ -72,10 +70,22 @@ $(document).ready(function () {
         e.preventDefault();
         auth.signOut().then(() => {
             alert("Sesión cerrada");
-            //$("#content").hide();
-            //$("#login-container").show();
         })
     })
+
+    var provider_fb = new firebase.auth.FacebookAuthProvider();
+    //Iniciar sesión con Facebook
+    $("#btn-login-facebook").click(function (e) {
+        e.preventDefault();
+        auth.signInWithPopup(provider_fb)
+            .then(result => {
+                alert("Ingreso con Facebook");
+            })
+            .catch(error => {
+                alert(error);
+            })
+    })
+
     var provider = new firebase.auth.GoogleAuthProvider();
     //Iniciar sesión con Google
     $("#btn-login-google").click(function (e) {
@@ -103,6 +113,8 @@ $(document).ready(function () {
             $("#login-container").show();
         }
     })
+
+    //Inicializar servicio de la bd Firestore
     const db = firebase.firestore();
     //Publicar un nuevo estado
     $("#btn-publish").click(function(e){
@@ -141,14 +153,68 @@ $(document).ready(function () {
                 const divPost = `
                     <div style='border:solid 2px;'>
                         <p>${doc.post}</p><br>
-                        <span>Publicado el: ${doc.day}/${doc.month}/${doc.year}<span>
+                        <textarea style='display: none;'></textarea>
+                        <button data-id="${document.id}" style='display: none;'>Guardar</button>
+                        <span>Publicado el: ${doc.day}/${doc.month}/${doc.year}</span>
+                        <button data-id="${document.id}" class="btn btn-warning btn-edit-post">Editar</button>
+                        <button data-id="${document.id}" class="btn btn-danger btn-delete-post">Eliminar</button>
                     </div>
                     <hr>
                 `;
                 content += divPost;
             });
             divContent.append(content);
+            //Agregar listener a btn-delete
+            const btnDelete = document.querySelectorAll(".btn-delete-post");
+            btnDelete.forEach(btn=>{
+                btn.addEventListener("click",(e)=>{
+                    const id = e.target.dataset.id;
+                    DeletePost(id);
+                })
+            })
+            const btnEdit = document.querySelectorAll(".btn-edit-post");
+            btnEdit.forEach(btn=>{
+                btn.addEventListener("click",(e)=>{
+                    const id = e.target.dataset.id;
+                    OpenEdit(id,btn);
+                })
+            })
         }
     }
+
+    function OpenEdit(id,button){
+        let parent = button.parentNode;
+        let textEdit = $(parent).children().eq(2);
+        let btnEdit = $(parent).children().eq(3);
+        textEdit.show();
+        btnEdit.show();
+        btnEdit.on("click",function(e){
+            SaveUpdate(e,id,textEdit.val())
+        });
+    }
+
+    function DeletePost(id){
+        db.collection("posts").doc(id).delete().then(() => {
+            alert("Se ha eliminado correctamente");
+            readPosts();
+        }).catch((error) => {
+            console.error("Detalle del Error: ", error);
+        });
+    }
+
+
+    function SaveUpdate(e,id_post,text_new){
+        e.preventDefault();
+        db.collection("posts").doc(id_post).update({
+            post: text_new,
+        }).then(()=>{
+            alert("Post actualizado");
+            readPosts();
+        })
+        .catch((error)=>{
+            alert("Error:",error);
+        })
+    }
+
 
 })
